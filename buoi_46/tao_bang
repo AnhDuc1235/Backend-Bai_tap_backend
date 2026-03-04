@@ -1,0 +1,33 @@
+create table customers
+(
+    id        int auto_increment
+        primary key,
+    full_name varchar(100) not null,
+    email     varchar(100) null,
+    city      varchar(50)  null
+);
+
+create table orders
+(
+    id           int auto_increment
+        primary key,
+    customer_id  int            null,
+    order_date   date           null,
+    total_amount decimal(12, 2) null,
+    constraint orders_customers_id_fk
+        foreign key (customer_id) references customers (id)
+);
+
+create table order_items
+(
+    id           int auto_increment
+        primary key,
+    order_id     int            null,
+    product_name varchar(100)   null,
+    quantity     int            null,
+    price        decimal(10, 2) null,
+    constraint order_items_orders_id_fk
+        foreign key (order_id) references orders (id)
+);
+
+

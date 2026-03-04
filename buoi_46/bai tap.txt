@@ -1,0 +1,40 @@
+use `bai tap`;
+
+# bai1
+# select customers.full_name, count(orders.customer_id) as total_orders
+# from customers
+# join orders
+# on customers.id = orders.customer_id
+# group by customers.full_name
+
+# bai2
+# select customers.full_name, sum(orders.total_amount) as total_spent
+# from customers
+# join orders
+# on customers.id = orders.customer_id
+# group by orders.customer_id
+# order by total_spent desc
+
+
+# bai3
+# select order_items.product_name, sum(order_items.quantity) as quantity
+# from order_items
+# group by order_items.product_name
+# order by quantity desc
+
+# bai4
+# select customers.*, count(orders.customer_id) as order_quantity
+# from customers
+# join orders
+# on customers.id = orders.customer_id
+# group by orders.customer_id
+# having order_quantity >= 2
+
+# bai5
+# select customers.*, sum(orders.total_amount) as total_amount
+# from customers
+# join orders
+# on customers.id = orders.customer_id
+# where total_amount > 10000000
+# group by orders.customer_id
+
