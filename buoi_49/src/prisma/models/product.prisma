@@ -1,0 +1,14 @@
+model Product {
+    id                       Int                        @id @default(autoincrement())
+    name                     String                     @db.VarChar(255)
+    // user      User      @relation(fields: [userId], references: [id]) //key truy cập
+    // userId    Int       @unique //khóa ngoại
+    description              String?                    @db.Text
+    price                    Decimal                    @db.Decimal(10, 2)
+    stock                    Int                        @default(0)
+    createdAt                DateTime                   @default(now()) @db.Timestamp()
+    updatedAt                DateTime                   @updatedAt @db.Timestamp()
+    Products_attribute_value Products_attribute_value[]
+
+    @@map("products")
+}

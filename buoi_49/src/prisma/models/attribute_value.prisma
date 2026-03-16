@@ -1,0 +1,10 @@
+model Attribute_value {
+    id                       Int                        @id @default(autoincrement())
+    attribute                Attribute                  @relation(fields: [attributeId], references: [id])
+    attributeId              Int
+    value                    String                     @db.VarChar(255)
+    createdAt                DateTime                   @default(now()) @db.Timestamp()
+    Products_attribute_value Products_attribute_value[]
+
+    @@map("attribute_values")
+}
