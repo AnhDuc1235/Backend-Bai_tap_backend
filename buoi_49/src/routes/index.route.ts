@@ -1,24 +1,9 @@
 import express from "express";
-// import { homeController } from "../controllers/home.controller";
-// import { userController } from "../controllers/user.controller";
 import { productController } from "../controllers/product.controller";
-import { attributeService } from "../services/attribute.service";
 import { attributeController } from "../controllers/attribute.controller";
-// import { validate } from "../middlewares/validate.middleware";
-// import { userSchema } from "../validators/user.validator";
+
 
 const router = express.Router();
-// router.get("/", homeController.index);
-// router.get("/gioi-thieu", homeController.about);
-// router.post("/users", validate(userSchema), userController.create);
-
-// router.get("/users", userController.index);
-// router.get("/users/:id", userController.find);
-// router.post("/users", userController.create);
-// router.put("/users/:id", userController.update);
-// router.delete("/users/:id", userController.delete);
-// router.delete("/users", userController.deleteMany);
-// router.get("/users/:userId/posts", userController.getPosts);
 
 router.get("/products", productController.getProduct);
 router.get("/products/:id", productController.getProductById);
