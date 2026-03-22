@@ -28,17 +28,19 @@ export type AggregateRefresh_token = {
 
 export type Refresh_tokenAvgAggregateOutputType = {
   id: number | null
+  user_id: number | null
   expires_at: number | null
 }
 
 export type Refresh_tokenSumAggregateOutputType = {
   id: number | null
+  user_id: number | null
   expires_at: number | null
 }
 
 export type Refresh_tokenMinAggregateOutputType = {
   id: number | null
-  user_id: string | null
+  user_id: number | null
   token: string | null
   createdAt: Date | null
   expires_at: number | null
@@ -46,7 +48,7 @@ export type Refresh_tokenMinAggregateOutputType = {
 
 export type Refresh_tokenMaxAggregateOutputType = {
   id: number | null
-  user_id: string | null
+  user_id: number | null
   token: string | null
   createdAt: Date | null
   expires_at: number | null
@@ -64,11 +66,13 @@ export type Refresh_tokenCountAggregateOutputType = {
 
 export type Refresh_tokenAvgAggregateInputType = {
   id?: true
+  user_id?: true
   expires_at?: true
 }
 
 export type Refresh_tokenSumAggregateInputType = {
   id?: true
+  user_id?: true
   expires_at?: true
 }
 
@@ -185,7 +189,7 @@ export type refresh_tokenGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 
 export type Refresh_tokenGroupByOutputType = {
   id: number
-  user_id: string
+  user_id: number
   token: string | null
   createdAt: Date | null
   expires_at: number | null
@@ -216,10 +220,11 @@ export type refresh_tokenWhereInput = {
   OR?: Prisma.refresh_tokenWhereInput[]
   NOT?: Prisma.refresh_tokenWhereInput | Prisma.refresh_tokenWhereInput[]
   id?: Prisma.IntFilter<"refresh_token"> | number
-  user_id?: Prisma.StringFilter<"refresh_token"> | string
+  user_id?: Prisma.IntFilter<"refresh_token"> | number
   token?: Prisma.StringNullableFilter<"refresh_token"> | string | null
   createdAt?: Prisma.DateTimeNullableFilter<"refresh_token"> | Date | string | null
   expires_at?: Prisma.IntNullableFilter<"refresh_token"> | number | null
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type refresh_tokenOrderByWithRelationInput = {
@@ -228,19 +233,21 @@ export type refresh_tokenOrderByWithRelationInput = {
   token?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   expires_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  user?: Prisma.UserOrderByWithRelationInput
   _relevance?: Prisma.refresh_tokenOrderByRelevanceInput
 }
 
 export type refresh_tokenWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  user_id?: string
   token?: string
   AND?: Prisma.refresh_tokenWhereInput | Prisma.refresh_tokenWhereInput[]
   OR?: Prisma.refresh_tokenWhereInput[]
   NOT?: Prisma.refresh_tokenWhereInput | Prisma.refresh_tokenWhereInput[]
+  user_id?: Prisma.IntFilter<"refresh_token"> | number
   createdAt?: Prisma.DateTimeNullableFilter<"refresh_token"> | Date | string | null
   expires_at?: Prisma.IntNullableFilter<"refresh_token"> | number | null
-}, "id" | "user_id" | "token">
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+}, "id" | "token">
 
 export type refresh_tokenOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -260,37 +267,37 @@ export type refresh_tokenScalarWhereWithAggregatesInput = {
   OR?: Prisma.refresh_tokenScalarWhereWithAggregatesInput[]
   NOT?: Prisma.refresh_tokenScalarWhereWithAggregatesInput | Prisma.refresh_tokenScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"refresh_token"> | number
-  user_id?: Prisma.StringWithAggregatesFilter<"refresh_token"> | string
+  user_id?: Prisma.IntWithAggregatesFilter<"refresh_token"> | number
   token?: Prisma.StringNullableWithAggregatesFilter<"refresh_token"> | string | null
   createdAt?: Prisma.DateTimeNullableWithAggregatesFilter<"refresh_token"> | Date | string | null
   expires_at?: Prisma.IntNullableWithAggregatesFilter<"refresh_token"> | number | null
 }
 
 export type refresh_tokenCreateInput = {
-  user_id: string
   token?: string | null
   createdAt?: Date | string | null
   expires_at?: number | null
+  user: Prisma.UserCreateNestedOneWithoutRefresh_tokensInput
 }
 
 export type refresh_tokenUncheckedCreateInput = {
   id?: number
-  user_id: string
+  user_id: number
   token?: string | null
   createdAt?: Date | string | null
   expires_at?: number | null
 }
 
 export type refresh_tokenUpdateInput = {
-  user_id?: Prisma.StringFieldUpdateOperationsInput | string
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expires_at?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  user?: Prisma.UserUpdateOneRequiredWithoutRefresh_tokensNestedInput
 }
 
 export type refresh_tokenUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.IntFieldUpdateOperationsInput | number
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expires_at?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -298,14 +305,13 @@ export type refresh_tokenUncheckedUpdateInput = {
 
 export type refresh_tokenCreateManyInput = {
   id?: number
-  user_id: string
+  user_id: number
   token?: string | null
   createdAt?: Date | string | null
   expires_at?: number | null
 }
 
 export type refresh_tokenUpdateManyMutationInput = {
-  user_id?: Prisma.StringFieldUpdateOperationsInput | string
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expires_at?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -313,7 +319,7 @@ export type refresh_tokenUpdateManyMutationInput = {
 
 export type refresh_tokenUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.IntFieldUpdateOperationsInput | number
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expires_at?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -335,6 +341,7 @@ export type refresh_tokenCountOrderByAggregateInput = {
 
 export type refresh_tokenAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
   expires_at?: Prisma.SortOrder
 }
 
@@ -356,7 +363,137 @@ export type refresh_tokenMinOrderByAggregateInput = {
 
 export type refresh_tokenSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
   expires_at?: Prisma.SortOrder
+}
+
+export type Refresh_tokenListRelationFilter = {
+  every?: Prisma.refresh_tokenWhereInput
+  some?: Prisma.refresh_tokenWhereInput
+  none?: Prisma.refresh_tokenWhereInput
+}
+
+export type refresh_tokenOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type refresh_tokenCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.refresh_tokenCreateWithoutUserInput, Prisma.refresh_tokenUncheckedCreateWithoutUserInput> | Prisma.refresh_tokenCreateWithoutUserInput[] | Prisma.refresh_tokenUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.refresh_tokenCreateOrConnectWithoutUserInput | Prisma.refresh_tokenCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.refresh_tokenCreateManyUserInputEnvelope
+  connect?: Prisma.refresh_tokenWhereUniqueInput | Prisma.refresh_tokenWhereUniqueInput[]
+}
+
+export type refresh_tokenUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.refresh_tokenCreateWithoutUserInput, Prisma.refresh_tokenUncheckedCreateWithoutUserInput> | Prisma.refresh_tokenCreateWithoutUserInput[] | Prisma.refresh_tokenUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.refresh_tokenCreateOrConnectWithoutUserInput | Prisma.refresh_tokenCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.refresh_tokenCreateManyUserInputEnvelope
+  connect?: Prisma.refresh_tokenWhereUniqueInput | Prisma.refresh_tokenWhereUniqueInput[]
+}
+
+export type refresh_tokenUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.refresh_tokenCreateWithoutUserInput, Prisma.refresh_tokenUncheckedCreateWithoutUserInput> | Prisma.refresh_tokenCreateWithoutUserInput[] | Prisma.refresh_tokenUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.refresh_tokenCreateOrConnectWithoutUserInput | Prisma.refresh_tokenCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.refresh_tokenUpsertWithWhereUniqueWithoutUserInput | Prisma.refresh_tokenUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.refresh_tokenCreateManyUserInputEnvelope
+  set?: Prisma.refresh_tokenWhereUniqueInput | Prisma.refresh_tokenWhereUniqueInput[]
+  disconnect?: Prisma.refresh_tokenWhereUniqueInput | Prisma.refresh_tokenWhereUniqueInput[]
+  delete?: Prisma.refresh_tokenWhereUniqueInput | Prisma.refresh_tokenWhereUniqueInput[]
+  connect?: Prisma.refresh_tokenWhereUniqueInput | Prisma.refresh_tokenWhereUniqueInput[]
+  update?: Prisma.refresh_tokenUpdateWithWhereUniqueWithoutUserInput | Prisma.refresh_tokenUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.refresh_tokenUpdateManyWithWhereWithoutUserInput | Prisma.refresh_tokenUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.refresh_tokenScalarWhereInput | Prisma.refresh_tokenScalarWhereInput[]
+}
+
+export type refresh_tokenUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.refresh_tokenCreateWithoutUserInput, Prisma.refresh_tokenUncheckedCreateWithoutUserInput> | Prisma.refresh_tokenCreateWithoutUserInput[] | Prisma.refresh_tokenUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.refresh_tokenCreateOrConnectWithoutUserInput | Prisma.refresh_tokenCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.refresh_tokenUpsertWithWhereUniqueWithoutUserInput | Prisma.refresh_tokenUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.refresh_tokenCreateManyUserInputEnvelope
+  set?: Prisma.refresh_tokenWhereUniqueInput | Prisma.refresh_tokenWhereUniqueInput[]
+  disconnect?: Prisma.refresh_tokenWhereUniqueInput | Prisma.refresh_tokenWhereUniqueInput[]
+  delete?: Prisma.refresh_tokenWhereUniqueInput | Prisma.refresh_tokenWhereUniqueInput[]
+  connect?: Prisma.refresh_tokenWhereUniqueInput | Prisma.refresh_tokenWhereUniqueInput[]
+  update?: Prisma.refresh_tokenUpdateWithWhereUniqueWithoutUserInput | Prisma.refresh_tokenUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.refresh_tokenUpdateManyWithWhereWithoutUserInput | Prisma.refresh_tokenUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.refresh_tokenScalarWhereInput | Prisma.refresh_tokenScalarWhereInput[]
+}
+
+export type refresh_tokenCreateWithoutUserInput = {
+  token?: string | null
+  createdAt?: Date | string | null
+  expires_at?: number | null
+}
+
+export type refresh_tokenUncheckedCreateWithoutUserInput = {
+  id?: number
+  token?: string | null
+  createdAt?: Date | string | null
+  expires_at?: number | null
+}
+
+export type refresh_tokenCreateOrConnectWithoutUserInput = {
+  where: Prisma.refresh_tokenWhereUniqueInput
+  create: Prisma.XOR<Prisma.refresh_tokenCreateWithoutUserInput, Prisma.refresh_tokenUncheckedCreateWithoutUserInput>
+}
+
+export type refresh_tokenCreateManyUserInputEnvelope = {
+  data: Prisma.refresh_tokenCreateManyUserInput | Prisma.refresh_tokenCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type refresh_tokenUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.refresh_tokenWhereUniqueInput
+  update: Prisma.XOR<Prisma.refresh_tokenUpdateWithoutUserInput, Prisma.refresh_tokenUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.refresh_tokenCreateWithoutUserInput, Prisma.refresh_tokenUncheckedCreateWithoutUserInput>
+}
+
+export type refresh_tokenUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.refresh_tokenWhereUniqueInput
+  data: Prisma.XOR<Prisma.refresh_tokenUpdateWithoutUserInput, Prisma.refresh_tokenUncheckedUpdateWithoutUserInput>
+}
+
+export type refresh_tokenUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.refresh_tokenScalarWhereInput
+  data: Prisma.XOR<Prisma.refresh_tokenUpdateManyMutationInput, Prisma.refresh_tokenUncheckedUpdateManyWithoutUserInput>
+}
+
+export type refresh_tokenScalarWhereInput = {
+  AND?: Prisma.refresh_tokenScalarWhereInput | Prisma.refresh_tokenScalarWhereInput[]
+  OR?: Prisma.refresh_tokenScalarWhereInput[]
+  NOT?: Prisma.refresh_tokenScalarWhereInput | Prisma.refresh_tokenScalarWhereInput[]
+  id?: Prisma.IntFilter<"refresh_token"> | number
+  user_id?: Prisma.IntFilter<"refresh_token"> | number
+  token?: Prisma.StringNullableFilter<"refresh_token"> | string | null
+  createdAt?: Prisma.DateTimeNullableFilter<"refresh_token"> | Date | string | null
+  expires_at?: Prisma.IntNullableFilter<"refresh_token"> | number | null
+}
+
+export type refresh_tokenCreateManyUserInput = {
+  id?: number
+  token?: string | null
+  createdAt?: Date | string | null
+  expires_at?: number | null
+}
+
+export type refresh_tokenUpdateWithoutUserInput = {
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expires_at?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type refresh_tokenUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expires_at?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type refresh_tokenUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expires_at?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -367,6 +504,7 @@ export type refresh_tokenSelect<ExtArgs extends runtime.Types.Extensions.Interna
   token?: boolean
   createdAt?: boolean
   expires_at?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["refresh_token"]>
 
 
@@ -380,13 +518,18 @@ export type refresh_tokenSelectScalar = {
 }
 
 export type refresh_tokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "user_id" | "token" | "createdAt" | "expires_at", ExtArgs["result"]["refresh_token"]>
+export type refresh_tokenInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
 
 export type $refresh_tokenPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "refresh_token"
-  objects: {}
+  objects: {
+    user: Prisma.$UserPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    user_id: string
+    user_id: number
     token: string | null
     createdAt: Date | null
     expires_at: number | null
@@ -730,6 +873,7 @@ readonly fields: refresh_tokenFieldRefs;
  */
 export interface Prisma__refresh_tokenClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -760,7 +904,7 @@ export interface Prisma__refresh_tokenClient<T, Null = never, ExtArgs extends ru
  */
 export interface refresh_tokenFieldRefs {
   readonly id: Prisma.FieldRef<"refresh_token", 'Int'>
-  readonly user_id: Prisma.FieldRef<"refresh_token", 'String'>
+  readonly user_id: Prisma.FieldRef<"refresh_token", 'Int'>
   readonly token: Prisma.FieldRef<"refresh_token", 'String'>
   readonly createdAt: Prisma.FieldRef<"refresh_token", 'DateTime'>
   readonly expires_at: Prisma.FieldRef<"refresh_token", 'Int'>
@@ -781,6 +925,10 @@ export type refresh_tokenFindUniqueArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.refresh_tokenOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.refresh_tokenInclude<ExtArgs> | null
+  /**
    * Filter, which refresh_token to fetch.
    */
   where: Prisma.refresh_tokenWhereUniqueInput
@@ -799,6 +947,10 @@ export type refresh_tokenFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Ext
    */
   omit?: Prisma.refresh_tokenOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.refresh_tokenInclude<ExtArgs> | null
+  /**
    * Filter, which refresh_token to fetch.
    */
   where: Prisma.refresh_tokenWhereUniqueInput
@@ -816,6 +968,10 @@ export type refresh_tokenFindFirstArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the refresh_token
    */
   omit?: Prisma.refresh_tokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.refresh_tokenInclude<ExtArgs> | null
   /**
    * Filter, which refresh_token to fetch.
    */
@@ -865,6 +1021,10 @@ export type refresh_tokenFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Exte
    */
   omit?: Prisma.refresh_tokenOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.refresh_tokenInclude<ExtArgs> | null
+  /**
    * Filter, which refresh_token to fetch.
    */
   where?: Prisma.refresh_tokenWhereInput
@@ -913,6 +1073,10 @@ export type refresh_tokenFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.refresh_tokenOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.refresh_tokenInclude<ExtArgs> | null
+  /**
    * Filter, which refresh_tokens to fetch.
    */
   where?: Prisma.refresh_tokenWhereInput
@@ -956,6 +1120,10 @@ export type refresh_tokenCreateArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   omit?: Prisma.refresh_tokenOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.refresh_tokenInclude<ExtArgs> | null
+  /**
    * The data needed to create a refresh_token.
    */
   data: Prisma.XOR<Prisma.refresh_tokenCreateInput, Prisma.refresh_tokenUncheckedCreateInput>
@@ -984,6 +1152,10 @@ export type refresh_tokenUpdateArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the refresh_token
    */
   omit?: Prisma.refresh_tokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.refresh_tokenInclude<ExtArgs> | null
   /**
    * The data needed to update a refresh_token.
    */
@@ -1025,6 +1197,10 @@ export type refresh_tokenUpsertArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   omit?: Prisma.refresh_tokenOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.refresh_tokenInclude<ExtArgs> | null
+  /**
    * The filter to search for the refresh_token to update in case it exists.
    */
   where: Prisma.refresh_tokenWhereUniqueInput
@@ -1050,6 +1226,10 @@ export type refresh_tokenDeleteArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the refresh_token
    */
   omit?: Prisma.refresh_tokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.refresh_tokenInclude<ExtArgs> | null
   /**
    * Filter which refresh_token to delete.
    */
@@ -1082,4 +1262,8 @@ export type refresh_tokenDefaultArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the refresh_token
    */
   omit?: Prisma.refresh_tokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.refresh_tokenInclude<ExtArgs> | null
 }

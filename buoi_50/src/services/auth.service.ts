@@ -59,16 +59,9 @@ export const authService = {
       user.id.toString(),
     );
 
-    await prisma.refresh_token.upsert({
-      where: {
-        user_id: user.id.toString(),
-      },
-      update: {
-        token: jtiRefreshToken,
-        expires_at: seconds,
-      },
-      create: {
-        user_id: user.id.toString(),
+    await prisma.refresh_token.create({
+      data: {
+        user_id: user.id,
         token: jtiRefreshToken,
         expires_at: seconds,
       },
@@ -155,16 +148,9 @@ export const authService = {
       id.toString(),
     );
 
-    await prisma.refresh_token.upsert({
-      where: {
-        user_id: id.toString(),
-      },
-      update: {
-        token: jtiRefreshToken,
-        expires_at: seconds,
-      },
-      create: {
-        user_id: id.toString(),
+    await prisma.refresh_token.create({
+      data: {
+        user_id: id,
         token: jtiRefreshToken,
         expires_at: seconds,
       },
@@ -179,10 +165,10 @@ export const authService = {
       }
     });
 
-    // //thu hồi:
-    // await prisma.refresh_token.delete({
-    //   where: { token: jti }
-    // });
+    //thu hồi:
+    await prisma.refresh_token.delete({
+      where: { token: jti }
+    });
     //Thu hồi refresh cũ
     await (await redisClient).del(`refreshToken:${jti}`);
 

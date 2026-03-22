@@ -1,9 +1,10 @@
 model refresh_token {
     id         Int       @id @default(autoincrement())
-    user_id    String    @unique
+    user       User      @relation(fields: [user_id], references: [id])
+    user_id    Int
     token      String?   @unique @db.VarChar(100)
     createdAt  DateTime? @default(now()) @db.Timestamp()
-    expires_at Int? 
+    expires_at Int?
 
     @@map("refresh_token")
 }

@@ -703,7 +703,6 @@ export type blacklisted_tokenOrderByRelevanceFieldEnum = (typeof blacklisted_tok
 
 
 export const refresh_tokenOrderByRelevanceFieldEnum = {
-  user_id: 'user_id',
   token: 'token'
 } as const
 
