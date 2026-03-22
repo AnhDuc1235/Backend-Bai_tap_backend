@@ -1,0 +1,9 @@
+model blacklisted_token {
+    id         Int       @id @default(autoincrement())
+    token_id   String
+    type       String?   @db.VarChar(50)
+    expires_at Int?
+    createdAt  DateTime? @default(now()) @db.Timestamp()
+
+    @@map("blacklisted_token")
+}

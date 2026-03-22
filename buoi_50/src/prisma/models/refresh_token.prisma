@@ -1,0 +1,9 @@
+model refresh_token {
+    id         Int       @id @default(autoincrement())
+    user_id    String    @unique
+    token      String?   @unique @db.VarChar(100)
+    createdAt  DateTime? @default(now()) @db.Timestamp()
+    expires_at Int? 
+
+    @@map("refresh_token")
+}
